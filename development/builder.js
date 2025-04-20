@@ -503,6 +503,7 @@ class SVGFile extends ImageFile {
 const IMAGE_FORMATS = new Map();
 IMAGE_FORMATS.set(".png", ImageFile);
 IMAGE_FORMATS.set(".jpg", ImageFile);
+IMAGE_FORMATS.set(".gif", ImageFile);
 IMAGE_FORMATS.set(".svg", SVGFile);
 
 class SitemapFile extends BuildFile {
