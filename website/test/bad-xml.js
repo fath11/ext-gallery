@@ -66,5 +66,6 @@
         console.log(args);
     }
   }
+  // @ts-ignore
   Scratch.extensions.register(new XMLTest());
 })(Scratch);

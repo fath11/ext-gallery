@@ -67,5 +67,6 @@
         }
     }
 
+    // @ts-ignore
     Scratch.extensions.register(new LoopsAndThings());
 })(Scratch);
