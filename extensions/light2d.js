@@ -1,3 +1,8 @@
+// Name: Light2D
+// ID: fath11light2d
+// Description: Easy normal map lighting.
+// By: Fath11 <https://scratch.mit.edu/users/Fath11/>
+
 (function(Scratch) {
   'use strict';
 
