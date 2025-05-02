@@ -177,7 +177,7 @@ void main() {
   class Light2D {
     getInfo() {
       return {
-        id: 'light2d',
+        id: 'fath11light2d',
         name: 'Light 2D',
         blocks: [
           {
