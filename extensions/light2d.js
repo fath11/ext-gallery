@@ -137,7 +137,6 @@ void main() {
           LightColor: lightColor,
           AmbientColor: ambientColor,
           Falloff: falloff,
-          u_normals: testNormal
         });
       }
 
@@ -155,6 +154,17 @@ void main() {
                 minMag: drawable.skin.useNearest(drawableScale, drawable) ? gl.NEAREST : gl.LINEAR
             }
         );
+      }
+
+      if (drawable.light2d?.normalmap) {
+        twgl.setTextureParameters(
+          gl, drawable.light2d.normalmap, {
+              minMag: drawable.skin.useNearest(drawableScale, drawable) ? gl.NEAREST : gl.LINEAR
+          }
+        );
+        Object.assign(uniforms, {
+          u_normals: drawable.light2d.normalmap
+        });
       }
 
       twgl.setUniforms(currentShader, uniforms);
@@ -184,9 +194,9 @@ void main() {
           {
             opcode: 'setMyNormalmap',
             blockType: Scratch.BlockType.COMMAND,
-            text: 'Set my normal map to [NORMALMAP]',
+            text: 'Set my normal map to [COSTUME]',
             arguments: {
-              NORMALMAP: {
+              COSTUME: {
                 type: Scratch.ArgumentType.COSTUME,
               },
             }
@@ -279,6 +289,19 @@ void main() {
       } else if (STATE == "disable") {
         drawable.light2d.shouldDoLighting = false
       }
+    }
+
+    setMyNormalmap({COSTUME}, util) {
+      const drawable = renderer._allDrawables[util.target.drawableID]
+      if (!drawable) return;
+      if (!drawable?.light2d?.shouldDoLighting) return;
+
+      const costumeIndex = util.target.getCostumeIndexByName(COSTUME);
+      if (costumeIndex === -1) return;
+      const costume = util.target.sprite.costumes[costumeIndex];
+      const skin = renderer._allSkins[costume.skinId]
+
+      drawable.light2d.normalmap = skin._uniforms.u_skin
     }
 
     setLightPos({X, Y, Z}) {
