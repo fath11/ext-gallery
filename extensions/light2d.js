@@ -296,7 +296,7 @@ void main() {
       if (!drawable) return;
       if (!drawable?.light2d?.shouldDoLighting) return;
 
-      const costumeIndex = util.target.getCostumeIndexByName(COSTUME);
+      const costumeIndex = util.target.getCostumeIndexByName(Scratch.Cast.toString(COSTUME));
       if (costumeIndex === -1) return;
       const costume = util.target.sprite.costumes[costumeIndex];
       const skin = renderer._allSkins[costume.skinId]
@@ -318,18 +318,18 @@ void main() {
 
     setLightColor({ COLOR, INTENSITY}) {
       const rgb = Scratch.Cast.toRgbColorList(COLOR)
-      lightColor = [rgb[0] / 255, rgb[1] / 255, rgb[2] / 255, INTENSITY / 100]
+      lightColor = [rgb[0] / 255, rgb[1] / 255, rgb[2] / 255, Scratch.Cast.toNumber(INTENSITY) / 100]
       renderer.dirty = true
     }
 
     setAmbientColor({ COLOR, INTENSITY}) {
       const rgb = Scratch.Cast.toRgbColorList(COLOR)
-      ambientColor = [rgb[0] / 255, rgb[1] / 255, rgb[2] / 255, INTENSITY / 100]
+      ambientColor = [rgb[0] / 255, rgb[1] / 255, rgb[2] / 255, Scratch.Cast.toNumber(INTENSITY) / 100]
       renderer.dirty = true
     }
 
     setFalloff({X, Y, Z}) {
-      falloff = [X, Y, Z]
+      falloff = [Scratch.Cast.toNumber(X), Scratch.Cast.toNumber(Y), Scratch.Cast.toNumber(Z)]
       renderer.dirty = true
     }
   }
