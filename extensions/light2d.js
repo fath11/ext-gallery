@@ -65,6 +65,7 @@ void main() {
 	
 	//normalize our vectors
 	vec3 N = normalize(NormalMap * 2.0 - 1.0);
+  //vec3 N = vec3(0.,0.,1.);
 	vec3 L = normalize(LightDir);
 	
 	//Pre-multiply light color with intensity
@@ -81,6 +82,7 @@ void main() {
 	vec3 Intensity = Ambient + Diffuse * Attenuation;
 	vec3 FinalColor = DiffuseColor.rgb * Intensity;
 	gl_FragColor = vec4(FinalColor, DiffuseColor.a);
+  //gl_FragColor = vec4(N * 0.5 + 0.5, 1.0);
 }
   `
 
@@ -157,7 +159,7 @@ void main() {
       if (drawable.light2d?.normalmap) {
         twgl.setTextureParameters(
           gl, drawable.light2d.normalmap, {
-              minMag: gl.NEAREST
+              minMag: gl.LINEAR,
           }
         );
         Object.assign(uniforms, {
@@ -301,7 +303,7 @@ void main() {
       const costume = util.target.sprite.costumes[costumeIndex];
       const skin = renderer._allSkins[costume.skinId]
 
-      drawable.light2d.normalmap = skin._uniforms.u_skin
+      drawable.light2d.normalmap = skin._texture ? skin._texture : skin._uniforms.u_skin
       renderer.dirty = true
     }
 
