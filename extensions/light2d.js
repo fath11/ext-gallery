@@ -308,11 +308,8 @@ void main() {
     }
 
     setLightPos({X, Y, Z}) {
-      const canvasWidth = renderer.canvas.width
-      const canvasHeight = renderer.canvas.height
-
-      const normalizedX = (Scratch.Cast.toNumber(X) + (canvasWidth / 2)) / canvasWidth
-      const normalizedY = (Scratch.Cast.toNumber(Y) + (canvasHeight / 2)) / canvasHeight
+      const normalizedX = (Scratch.Cast.toNumber(X) + (runtime.stageWidth / 2)) / runtime.stageWidth
+      const normalizedY = (Scratch.Cast.toNumber(Y) + (runtime.stageHeight / 2)) / runtime.stageHeight
 
       lightPos = [normalizedX, normalizedY, Z]
       renderer.dirty = true
